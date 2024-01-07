@@ -10,7 +10,8 @@ namespace JWTTokenAPI.Controllers
 {
     [Route("api/userlist")]
     [ApiController]
-    [Authorize(Roles = UserRoles.AdministratorOrSuperAdministrator)]
+    [Authorize(Roles = "SAdmin,Admin")]
+    //[Authorize(Roles = "SAdmin")]
     //[Authorize]
     public class UserListController : ControllerBase
     {

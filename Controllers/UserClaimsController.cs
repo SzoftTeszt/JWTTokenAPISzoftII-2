@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace JWTTokenAPI.Controllers
 {
-    [Route("api/userlist")]
+    [Route("api/userClaims")]
     [ApiController]
     [Authorize(Roles = "SAdmin")]
     //[Authorize]

@@ -19,6 +19,7 @@ namespace JWTTokenAPI.Services
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
+           
 
         }
 
@@ -28,6 +29,7 @@ namespace JWTTokenAPI.Services
             return (1, userList);
         }
 
+      
         public async Task<(int, IList<string>)> UserClaim(string id)
         {
             var user = await userManager.FindByIdAsync(id);
@@ -54,7 +56,7 @@ namespace JWTTokenAPI.Services
             return (1, "");
         }
 
-        public async Task<(int, string)> Registeration(RegistrationModel model, string role)
+        public async Task<(int, string)> Register(RegistrationModel model)
         {
             
             
@@ -91,13 +93,13 @@ namespace JWTTokenAPI.Services
             return (1, "User created successfully!");
         }
 
-        public async Task<(int, string)> Login(LoginModel model)
+        public async Task<(int, ApplicationUser?, string)> Login(LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
             if (user == null)
-                return (0, "Invalid username");
+                return (0, null, "Invalid username");
             if (!await userManager.CheckPasswordAsync(user, model.Password))
-                return (0, "Invalid password");
+                return (0, null, "Invalid password");
 
             var userRoles = await userManager.GetRolesAsync(user);
             var authClaims = new List<Claim>
@@ -111,7 +113,7 @@ namespace JWTTokenAPI.Services
                 authClaims.Add(new Claim(ClaimTypes.Role, userRole));
             }
             string token = GenerateToken(authClaims);
-            return (1, token);
+            return (1,user, token);
         }
 
 

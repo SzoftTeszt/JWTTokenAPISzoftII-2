@@ -27,10 +27,10 @@ namespace JWTTokenAPI.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid payload");
-                var (status, message) = await _authService.Login(model);
+                var (status,user, message) = await _authService.Login(model);
                 if (status == 0)
                     return BadRequest(message);
-                return Ok(message);
+                return Ok(new LoggedUser(user, message));
             }
             catch (Exception ex)
             {
@@ -47,7 +47,8 @@ namespace JWTTokenAPI.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Invalid payload");
-                var (status, message) = await _authService.Registeration(model, UserRoles.Admin);
+                var (status, message) = 
+                    await _authService.Register(model);
                 if (status == 0)
                 {
                     return BadRequest(message);

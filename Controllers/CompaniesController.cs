@@ -7,41 +7,65 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JWTTokenAPI.Data;
 using JWTTokenAPI.Models;
+using JWTTokenAPI.Models;
+using JWTTokenAPI.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using JWTTokenAPI.Models;
+using JWTTokenAPI.Services;
 
-namespace JWTTokenAPI
+namespace JWTTokenAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Companies")]
     [ApiController]
     [Authorize]
+
     public class CompaniesController : ControllerBase
     {
         private readonly JWTTokenAPIContext _context;
+        private readonly ICompService _compService;
+        private readonly ILogger<AuthenticationController> _logger;
 
-        public CompaniesController(JWTTokenAPIContext context)
+        public CompaniesController(ICompService compService,JWTTokenAPIContext context, ILogger<AuthenticationController> logger)
         {
+         
             _context = context;
+            _compService = compService;
+            _logger = logger;
         }
 
-        // GET: api/Companies
-        [HttpGet]
+        //GET: api/Companies
+       [HttpGet]
+       
         public async Task<ActionResult<IEnumerable<Company>>> GetCompany()
         {
-          if (_context.Company == null)
-          {
-              return NotFound();
-          }
+            if (_context.Company == null)
+            {
+                return NotFound();
+            }
             return await _context.Company.ToListAsync();
         }
+
+        //[HttpGet]
+      
+        //public async Task<IActionResult> Get()
+        //{
+        //    var (status, message) = await _compService.CompanyList();
+        //    return Ok(message);
+        //}
+
 
         // GET: api/Companies/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Company>> GetCompany(int id)
         {
-          if (_context.Company == null)
-          {
-              return NotFound();
-          }
+            if (_context.Company == null)
+            {
+                return NotFound();
+            }
             var company = await _context.Company.FindAsync(id);
 
             if (company == null)
@@ -88,10 +112,10 @@ namespace JWTTokenAPI
         [HttpPost]
         public async Task<ActionResult<Company>> PostCompany(Company company)
         {
-          if (_context.Company == null)
-          {
-              return Problem("Entity set 'JWTTokenAPIContext.Company'  is null.");
-          }
+            if (_context.Company == null)
+            {
+                return Problem("Entity set 'JWTTokenAPIContext.Company'  is null.");
+            }
             _context.Company.Add(company);
             await _context.SaveChangesAsync();
 

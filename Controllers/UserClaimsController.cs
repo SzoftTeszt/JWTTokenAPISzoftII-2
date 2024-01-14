@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 namespace JWTTokenAPI.Controllers
-{
+{ 
     [Route("api/userClaims")]
-    [ApiController]
+   [ApiController]
     [Authorize(Roles = "SAdmin")]
     //[Authorize]
     public class UserClaimsController : ControllerBase

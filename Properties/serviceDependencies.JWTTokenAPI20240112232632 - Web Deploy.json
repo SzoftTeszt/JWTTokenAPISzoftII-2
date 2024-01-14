@@ -5,8 +5,8 @@
       "type": "apis.azure"
     },
     "mssql1": {
-      "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sqlproba/databases/TonenesGame",
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sqlproba/databases/Adatbazid",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:JWTTokenAPIContext"
     }

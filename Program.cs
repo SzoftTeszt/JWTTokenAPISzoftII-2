@@ -11,6 +11,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<ICompService,CompService>();
 
 builder.Services.AddDbContext<JWTTokenAPIContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("JWTTokenAPIContext") ?? throw new InvalidOperationException("Connection string 'JWTTokenAPIContext' not found.")));

@@ -12,17 +12,18 @@ namespace JWTTokenAPI.Controllers
     public class CompanyController : ControllerBase
     {
         
-        private readonly JWTTokenAPIContext _context;
+        //private readonly JWTTokenAPIContext _context;
         private readonly ICompService _compService;
-        private readonly ILogger<AuthenticationController> _logger;
+        //private readonly ILogger<AuthenticationController> _logger;
 
        
-        public CompanyController(ICompService compService, JWTTokenAPIContext context, ILogger<AuthenticationController> logger)
+        //public CompanyController(ICompService compService, JWTTokenAPIContext context, ILogger<AuthenticationController> logger)
+        public CompanyController(ICompService compService)
         {
 
-            _context = context;
+            //_context = context;
             _compService = compService;
-            _logger = logger;
+            //_logger = logger;
         }
 
         [HttpGet]
